@@ -1,0 +1,49 @@
+<div class="container" class="m-3">
+   <h1> My Simple Todo List</h1>
+  <h3>My Todos</h3>
+  <div class="form">
+    <h5 class="mt-3 mb-3">Create Todo</h5>
+    <div class="row mt-2">
+      <label for="todoName" class="col-md-2 mt-1">Todo Name</label>
+      <input type="text" class="form-control form-control-sm col-md-5 m-1" style="width:30%" id="todoName"
+        name="todoName" [(ngModel)]="todoName" placeholder="Enter Todo Name" />
+    </div>
+    <div class="row mt-2">
+      <label for="todoDescription" class="col-md-2 mt-1">Todo Description</label>
+      <input type="text" class="form-control form-control-sm col-md-5 m-1" style="width:30%" id="todoDescription"
+        name="todoDescription" [(ngModel)]="todoDescription" placeholder="Enter Todo Description"/>
+    </div>
+    <div class="row mt-2">
+      <button class="btn btn-primary col-md-1 m-2" type="button" *ngIf="!todoId" [disabled]="!(todoName.length > 5 && todoDescription.length > 10)" (click)="addTodo()">Add</button>
+      <button class="btn btn-primary col-md-1 m-2" type="button" *ngIf="todoId" [disabled]="!(todoName.length > 5 && todoDescription.length > 10)" (click)="updateTodo()">Update</button>
+      <button class="btn btn-danger col-md-1 m-2" type="button" (click)="resetValues()">Reset</button>
+    </div>
+  </div>
+
+  <table class="table table-bordered mt-3" style="width: 70%">
+    <caption>List of Todos ( {{todos.length}} )</caption>
+    
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let todo of todos">
+        <tr>
+          <td scope="row">{{todo.id}}</td>
+          <td>{{todo.name}}</td>
+          <td>{{todo.description}}</td>
+          <td>
+            <button class="btn btn-danger m-1" style="width: 50px;font-size: 7px;" (click)="removeTodo(todo.id)">Remove</button>
+            <button class="btn btn-primary m-1" style="width: 50px;font-size: 7px;" (click)="CompleteTodo(todo)">complete</button>
+            <button class="btn btn-primary m-1" style="width: 50px;font-size: 7px;" (click)="editTodo(todo)">Edit</button>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
